@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - 12
+
+env:
+  - DATABASE_URL=postgresql://postgres@localhost:5432/frutheph_test
+
+before_script:
+  - psql -c 'create database  frutheph_test;' -U postgres
+  - psql -U postgres -d frutheph_test -a -f sql/create-tables.sql
+  - psql -U postgres -d frutheph_test -a -f sql/insert-table.sql
+
+services:
+  - postgresql
